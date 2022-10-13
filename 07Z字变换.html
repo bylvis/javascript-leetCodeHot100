@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            规则：将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。
+            比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
+            P   A   H   N
+            A P L S I I G
+            Y   I   R
+            之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如："PAHNAPLSIIGYIR"。
+            思路:行数为n就n+1为一组，如行数为3。他们所在的行数是周期变换的。
+            PAYP|ALIS|HIRI|NG
+            1232|1232|1232|12
+            0.字符串长度小于等于1以及numRows等于1 直接退出
+            1.周期为nowRows*2-2
+            2.循环遍历取得当前索引对周期的余数 row = i % period。
+            3.如果余数是小于行数的，直接放进对应的数组。
+            4.如果余数大于行数,放进(numRows-1)-(row-(numRows-1))这个是倒数第几排,也就是他对应行的数组里面。
+            5.最后把多维数组凭借成一个字符串return即可。
+        */
+        var convert = function(s, numRows) {
+            if(s.length<=1||numRows==1)return s
+            let period = numRows*2-2
+            let arr = new Array(numRows).fill('')
+            for(let i = 0;i<s.length;i++){
+                mod = i%period
+                if(mod<numRows){
+                    let row = mod
+                    arr[row]+=s[i]
+                }else{
+                    let row = (numRows-1)-(mod-(numRows-1))
+                    arr[row]+=s[i] 
+                }
+            }
+            let str = ''
+            for(let i in arr){
+                str+=arr[i]
+            }
+            return str
+        };
+        let str = 'AB'
+        console.log(convert(str,1));
+    </script>
+</body>
+</html>

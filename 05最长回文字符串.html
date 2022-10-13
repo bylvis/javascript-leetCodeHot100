@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+    输入：s = "babad"
+    输出："bab"
+    解释："aba" 同样是符合题意的答案。
+    思路:中心扩散法
+    定义left，right记录位置。
+    定义resStr记录最长字符串。
+     1.遍历字符串。
+     2.将left置为当前遍历位置-1
+     3.第一次扩散用while判断aba和abba的情况,满足abba则向该方向继续扩散。
+     4.满足两端相等，并且未越界，向两端扩散。
+     5.max=right-left 持续更新 最后的right 和left 要各自回一位 substring的右侧是不包括的需要+1
+*/
+    function longestPalindrome(s){
+      let Resleft = 0;
+      let Resright = 0;
+      let maxLen = 0;
+      let i = 0; //设i为中心的索引
+      while(i < s.length) {
+          let left = i - 1;
+          // 检测中心第一次朝左 是否与中心相同 相同
+          while (left >= 0 && s[i] === s[left]) {
+              left--;
+          }
+          let right = i + 1;
+          // 检测中心第一次朝右 是否与中心相同 相同
+          while (right < s.length && s[i] === s[right]){
+              right++;
+          }
+          const end = right; //这里的right是右边第一
+          // 检测中心 向左右扩散是否相同 知道不同就
+          while (left >= 0 && right < s.length && s[right]==s[left]){
+              left--;
+              right++;
+          }
+          // 记录本次位置的结果
+          if (maxLen < right - left - 1) {
+              maxLen = right - left - 1;
+              Resleft = left + 1;
+              Resright = right - 1;
+          }
+          i = end; 
+        }
+        return s.substring(Resleft, Resright + 1);
+    };
+
+    let res = longestPalindrome('dassadas')
+    console.log(res);
+    </script>
+ </body>
+</html>

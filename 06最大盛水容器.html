@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+          输入：[1,8,6,2,5,4,8,3,7]
+          输出：49 
+          解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
+          思路:双指针
+          1.定义left、right两个指针，先计算最远的两个柱子容积。
+          2.然后让矮的指针向中心移动直到两个指针重合。
+          避免了不必要的遍历。
+        */
+        var maxArea = function(height) {
+          let left=0;
+          let right=height.length-1;
+          let sum=0
+          while(left!=right){
+            if(sum<(right-left)*Math.min(height[left],height[right])){
+              sum = (right-left)*Math.min(height[left],height[right])
+            }
+            if(height[left]<height[right]){
+              left++
+            }else{
+              right--
+            }
+          }
+          return sum
+        };
+        let height =[1,8,6,2,5,4,8,3,7]
+        console.log(maxArea(height));
+    </script>
+</body>
+</html>

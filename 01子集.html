@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         /*
+          reduce遍历 1、2、3、4,初始值为空[[]]
+          接受的返回值是下一次遍历的初始值
+          所以每次遍历
+            map初始值并且与新值拼接
+            将拼接后的数组和初始值拼接并返回形成下一次初始值
+          1.初始值[] 
+          2.[[],[1]]
+          3.[[],[1]] + [[2],[1,2]]
+          4.[[],[1],[2],[1,2]] + [3] +[1,3] +[2,3] +[1,2,3]
+          5.[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]] + [4,[1,4],[2,4],[1,2,4],[3,4]...]
+          6.完成
+        */
+        let num = [1,2,3,4]
+        const subset = (num) => {
+          return num.reduce((total,num)=>total.concat(total.map((item)=>item.concat(num))),[[]])
+        }
+        let arr = subset(num)
+        console.log(arr);
+    </script>
+</body>
+</html>
